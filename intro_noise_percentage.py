@@ -16,38 +16,48 @@ for line in f:
 f.close()
 f = open(sys.argv[1])
 for line in f:
-	i=i+1
 	word = line.strip().split('\t')
 	if len(word) < 5:
 		word.append(' ')
 	if s in word[0]:
 		c += 1
-		if c==10:
+		if c==5:
 			c=0
 			if(noise/total < noise_per):
 				noise=noise+1
 				word[0] = "cariers"
-				h.write(str(i)+'\n')
 				line1 = word[0]+'\t'+word[1]+'\t'+word[2]+'\t'+word[3]+'\t'+word[4]+'\n'
 				g.write(line1)
+				i=i+1
+				h.write(str(i)+'\n')
+			else:
+				g.write(line)
+				i=i+1
 		else:
 			g.write(line)
+			i=i+1
 f.close()
 f = open(sys.argv[1])   #dataset
-i=0
 for line in f:
-	i=i+1
 	word = line.strip().split('\t')
 	if len(word) < 5:
 		word.append(' ')
 	if s not in word[0]:
-		if(noise/total < noise_per):
-			noise=noise+1
-			word[0] = s
-			h.write(str(i)+'\n')
-			line1 = word[0]+'\t'+word[1]+'\t'+word[2]+'\t'+word[3]+'\t'+word[4]+'\n'
-			g.write(line1)	
+		c += 1
+		if c==1000:
+			c=0
+			if(noise/total < noise_per):
+				noise=noise+1
+				word[0] = s
+				line1 = word[0]+'\t'+word[1]+'\t'+word[2]+'\t'+word[3]+'\t'+word[4]+'\n'
+				g.write(line1)	
+				i=i+1
+				h.write(str(i)+'\n')
+			else:
+				g.write(line)
+				i=i+1
 		else:
 			g.write(line)
+			i=i+1
 f.close()
 g.close()	

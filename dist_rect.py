@@ -19,7 +19,9 @@ if(i/k <= h):
 		w=line.strip().split('\t')
 		if g not in w[0]:
 			l=l+1
-			if(i/(k-l) >= h):
+			if(i/(k-l) <= h):
+				pass
+			else:
 				q.write(line)
 		else:
 			q.write(line)
